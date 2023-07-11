@@ -1,0 +1,7 @@
+.profile__avatar-section {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  border-radius: 50%;
+  position: relative;
+}
