@@ -110,7 +110,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: `https://mesto.nomoreparties.co/v1/${cohort}`,
+  baseUrl: `http://api.oksifoxy.mesto.nomoredomains.work/`,
   headers: {
     authorization: token,
     'Content-Type': 'application/json'
