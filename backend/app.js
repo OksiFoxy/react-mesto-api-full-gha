@@ -29,9 +29,8 @@ mongoose.set('debug', true);
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 app.use(requestLogger); // подключаем логгер запросов
 app.use(allRouters);
-// здесь обрабатываем все ошибки
-app.use(errors());
 app.use(errorLogger); // подключаем логгер ошибок
+app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
