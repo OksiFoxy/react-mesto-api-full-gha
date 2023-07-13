@@ -28,8 +28,8 @@
 
 IP 051.250.073.059
 
-Frontend <url> http://oksifoxy.mesto.nomoredomains.work/
+Frontend <url> https://oksifoxy.mesto.nomoredomains.work
 
-Backend http://api.oksifoxy.mesto.nomoredomains.work/
+Backend https://api.oksifoxy.mesto.nomoredomains.work
 
 Адрес репозитория: https://github.com/OksiFoxy/react-mesto-api-full-gha
