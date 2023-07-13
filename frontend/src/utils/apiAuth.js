@@ -5,7 +5,7 @@ const checkResponse = (res) => {
   return Promise.reject(res.status);
 }
 
-const BASE_URL = 'https://api.oksifoxy.mesto.nomoredomains.work/';
+const BASE_URL = 'https://api.oksifoxy.mesto.nomoredomains.work';
 
 const signUp = (email, password) => {
   const requestUrl = BASE_URL + '/signup';
