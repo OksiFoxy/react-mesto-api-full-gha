@@ -1,10 +1,3 @@
-const api = new Api ({
-  baseUrl: `https://api.oksifoxy.mesto.nomoredomains.work`,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
 class Api {
   constructor({ baseUrl, headers }) {
     this._headers = headers;
@@ -22,25 +15,21 @@ class Api {
   getUserInfo() {
     const requestUrl = this._baseUrl + `/users/me`;
     return fetch(requestUrl, {
-      method: 'GET',
-      credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      }
-    })
-    .then(this._checkResponse);
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }).then(this._checkResponse);
   }
 
   getInitialCards() {
     const requestUrl = this._baseUrl + '/cards';
-    return fetch(requestUrl,{
-      method: 'GET',
-      credentials: 'include',
+    return fetch(requestUrl, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      }
-    })
-    .then(this._checkResponse);
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }).then(this._checkResponse);
   }
 
   getDataFromServer() {
@@ -51,10 +40,9 @@ class Api {
     const requestUrl = this._baseUrl + `/users/me`;
     return fetch(requestUrl, {
       method: 'PATCH',
-      credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify(body),
     }).then(this._checkResponse);
@@ -65,10 +53,9 @@ class Api {
     return fetch(requestUrl, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      credentials: 'include',
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
@@ -78,12 +65,10 @@ class Api {
     return fetch(requestUrl, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      credentials: 'include',
-    })
-    .then(this._checkResponse);
+    }).then(this._checkResponse);
   }
 
   addCardLike(cardId) {
@@ -91,12 +76,10 @@ class Api {
     return fetch(requestUrl, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      credentials: 'include',
-    })
-    .then(this._checkResponse);
+    }).then(this._checkResponse);
   }
 
   deleteCardLike(cardId) {
@@ -104,10 +87,9 @@ class Api {
     return fetch(requestUrl, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      credentials: 'include',
     }).then(this._checkResponse);
   }
 
@@ -116,13 +98,16 @@ class Api {
     return fetch(requestUrl, {
       method: 'PATCH',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-      credentials: 'include',
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
 }
+
+const api = new Api({
+  baseUrl: `https://api.oksifoxy.mesto.nomoredomains.work`,
+});
 
 export default api;
