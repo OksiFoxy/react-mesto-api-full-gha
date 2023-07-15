@@ -87,6 +87,7 @@ export default function App() {
           localStorage.clear();
         });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [] );
 
   useEffect(() => {
