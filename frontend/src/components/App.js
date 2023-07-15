@@ -17,6 +17,8 @@ import crossImg from '../images/dontsingin.svg'
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { signUp, signIn, checkToken } from '../utils/apiAuth';
 
+
+
 export default function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -74,21 +76,18 @@ export default function App() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       checkToken(jwt)
-        .then((data) => {
-          if (data) {
-            console.log(data);
+        .then((res) => {
+          if (res) {
             setIsLoggedIn(true);
-            setEmailValue(data.email);
-            navigate('/', { replace: true })
+            setEmailValue(res.data.email);
+            navigate('/');
           }
         })
         .catch((err) => {
-          console.log(err);
-          localStorage.clear();
+          console.error(err);
         });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [] );
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {

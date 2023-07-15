@@ -15,20 +15,14 @@ class Api {
   getUserInfo() {
     const requestUrl = this._baseUrl + `/users/me`;
     return fetch(requestUrl, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
   getInitialCards() {
     const requestUrl = this._baseUrl + '/cards';
     return fetch(requestUrl, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -40,10 +34,7 @@ class Api {
     const requestUrl = this._baseUrl + `/users/me`;
     return fetch(requestUrl, {
       method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
@@ -52,10 +43,7 @@ class Api {
     const requestUrl = this._baseUrl + '/cards';
     return fetch(requestUrl, {
       method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
@@ -64,10 +52,7 @@ class Api {
     const requestUrl = this._baseUrl + `/cards/${cardId}`;
     return fetch(requestUrl, {
       method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -75,10 +60,7 @@ class Api {
     const requestUrl = this._baseUrl + `/cards/likes/${cardId}`;
     return fetch(requestUrl, {
       method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -86,10 +68,7 @@ class Api {
     const requestUrl = this._baseUrl + `/cards/likes/${cardId}`;
     return fetch(requestUrl, {
       method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -97,10 +76,7 @@ class Api {
     const requestUrl = this._baseUrl + `/users/me/avatar`;
     return fetch(requestUrl, {
       method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      headers: this._headers,
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
@@ -108,6 +84,11 @@ class Api {
 
 const api = new Api({
   baseUrl: `https://api.oksifoxy.mesto.nomoredomains.work`,
+  // baseUrl: `https://auth.nomoreparties.co`,
+  headers: {
+    authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    'Content-Type': 'application/json'
+  }
 });
 
 export default api;
