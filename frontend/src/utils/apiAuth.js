@@ -1,8 +1,8 @@
-const checkResponse = (res) => {
+function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(res.status);
+  return Promise.reject(`Ошибка: ${res.status}`);
 }
 
 const BASE_URL = 'https://api.oksifoxy.mesto.nomoredomains.work';
@@ -11,10 +11,15 @@ const signUp = (email, password) => {
   const requestUrl = BASE_URL + '/signup';
   return fetch(requestUrl, {
     method: 'POST',
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ email, password }),
   })
-    .then(checkResponse);
+  .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 const signIn = (email, password) => {
@@ -24,19 +29,26 @@ const signIn = (email, password) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   })
-    .then(checkResponse);
-}
+  .then((res) => {
+    return checkResponse(res);
+  })
+  .then((data) => {
+    localStorage.setItem('token', data.token)
+    return data;
+  })
 
-const checkToken = (token) => {
+};
+
+const checkToken = () => {
   const requestUrl = BASE_URL + '/users/me';
   return fetch(requestUrl, {
     method: 'GET',
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-  })
-    .then(checkResponse);
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    }
+  }).then(res => checkResponse(res))
 }
 
 export { signUp, signIn, checkToken };
