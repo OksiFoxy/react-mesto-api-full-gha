@@ -34,7 +34,7 @@ const checkToken = (token) => {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+      "Authorization": `Bearer ${localStorage.getItem("jwt")}`
     },
   })
     .then(checkResponse);
