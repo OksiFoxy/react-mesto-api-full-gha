@@ -1,6 +1,5 @@
 const allowedCors = [
   'http://localhost:3000',
-  'http://localhost:3001',
   'https://oksifoxy.mesto.nomoredomains.work',
   'http://api.oksifoxy.mesto.nomoredomains.work',
   'https://mesto.oksifoxy.mesto.nomoredomains.work',
