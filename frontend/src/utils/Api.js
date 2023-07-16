@@ -57,7 +57,7 @@ class Api {
   }
 
   addCardLike(cardId) {
-    const requestUrl = this._baseUrl + `/cards/likes/${cardId}`;
+    const requestUrl = this._baseUrl + `/cards/${cardId}/likes`;
     return fetch(requestUrl, {
       method: 'PUT',
       headers: this._headers,
@@ -65,7 +65,7 @@ class Api {
   }
 
   deleteCardLike(cardId) {
-    const requestUrl = this._baseUrl + `/cards/likes/${cardId}`;
+    const requestUrl = this._baseUrl + `/cards/${cardId}/likes`;
     return fetch(requestUrl, {
       method: 'DELETE',
       headers: this._headers,

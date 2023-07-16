@@ -79,7 +79,7 @@ export default function App() {
         .then((res) => {
           if (res) {
             setIsLoggedIn(true);
-            setEmailValue(res.data.email);
+            setEmailValue(res.email);
             navigate('/');
           }
         })
@@ -107,22 +107,32 @@ export default function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((id) => id === currentUser._id)
 
-    if (!isLiked) {
-      api.addCardLike(card._id).then((newCard) => {
-        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-      }).catch((err) => {
-        console.error(err);
-      });
-    } else {
-      api.deleteCardLike(card._id).then((newCard) => {
-        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-      }).catch((err) => {
-        console.error(err);
-      });
+    if (isLiked) {
+      api
+        .deleteCardLike(card._id)
+        .then((newCard) =>
+          setCards((state) =>
+            state.map((item) => (item._id === card._id ? newCard : item))
+          )
+        )
+        .catch((err) => {
+          console.error(err);
+        });
+      } else {
+      api
+        .addCardLike(card._id)
+        .then((newCard) =>
+          setCards((state) =>
+            state.map((item) => (item._id === card._id ? newCard : item))
+          )
+        )
+        .catch((err) => {
+          console.error(err);
+        });
+      }
     }
-  }
 
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);

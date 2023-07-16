@@ -57,7 +57,7 @@ module.exports.deleteCard = (req, res, next) => {
 module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
-    { $pull: { likes: req.user._id } },
+    { $addToSet: { likes: req.user._id } },
     { new: true },
   )
     .orFail(() => new NotFoundError('Карточка с указанным _id не найдена'))
@@ -65,7 +65,7 @@ module.exports.likeCard = (req, res, next) => {
       if (!card) {
         return next(new NotFoundError('Карточка с указанным _id не найдена'));
       }
-      return res.send({ card, message: 'Лайк поставлен' });
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -88,7 +88,7 @@ module.exports.removeLikeCard = (req, res, next) => {
       if (!card) {
         return next(new NotFoundError('Карточка с указанным _id не найдена'));
       }
-      return res.send({ card, message: 'Лайк удален' });
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {

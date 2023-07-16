@@ -22,7 +22,7 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         return next(new NotFoundError('Нет пользователя с таким id'));
       }
-      return res.send({ data: user });
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -39,7 +39,7 @@ module.exports.getUserId = (req, res, next) => {
       if (!user) {
         next(new NotFoundError('Нет пользователя с таким id'));
       } else {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       }
     })
     .catch((err) => {
@@ -103,7 +103,7 @@ module.exports.updateUserData = (req, res, next) => {
       if (!user) {
         return next(new NotFoundError('Нет пользователя с таким id'));
       }
-      return res.send({ data: user });
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -122,7 +122,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
       if (!user) {
         return next(new NotFoundError('Нет пользователя с таким id'));
       }
-      return res.send({ data: user });
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
