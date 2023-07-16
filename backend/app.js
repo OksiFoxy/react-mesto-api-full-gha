@@ -31,9 +31,18 @@ app.use(express.json());
 
 mongoose.set('debug', true);
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
-app.use(requestLogger); // подключаем логгер запросов
+app.use(requestLogger);
+
+// © Не забудьте удалить этот код после успешного прохождения ревью.
+app.use('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(allRouters);
-app.use(errorLogger); // подключаем логгер ошибок
+
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
