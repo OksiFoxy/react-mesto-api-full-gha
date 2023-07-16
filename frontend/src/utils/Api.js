@@ -1,6 +1,5 @@
 class Api {
-  constructor({ baseUrl, headers }) {
-    this._headers = headers;
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
   }
 
@@ -12,17 +11,30 @@ class Api {
     }
   }
 
+  _createHeaders() {
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      headers["Authorization"] = `Bearer ${localStorage.getItem("jwt")}`
+    }
+
+    return headers;
+  }
+
   getUserInfo() {
     const requestUrl = this._baseUrl + `/users/me`;
     return fetch(requestUrl, {
-      headers: this._headers,
+      headers: this._createHeaders(),
     }).then(this._checkResponse);
   }
 
   getInitialCards() {
     const requestUrl = this._baseUrl + '/cards';
     return fetch(requestUrl, {
-      headers: this._headers,
+      headers: this._createHeaders(),
     }).then(this._checkResponse);
   }
 
@@ -34,7 +46,7 @@ class Api {
     const requestUrl = this._baseUrl + `/users/me`;
     return fetch(requestUrl, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: this._createHeaders(),
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
@@ -43,7 +55,7 @@ class Api {
     const requestUrl = this._baseUrl + '/cards';
     return fetch(requestUrl, {
       method: 'POST',
-      headers: this._headers,
+      headers: this._createHeaders(),
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
@@ -52,7 +64,7 @@ class Api {
     const requestUrl = this._baseUrl + `/cards/${cardId}`;
     return fetch(requestUrl, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: this._createHeaders(),
     }).then(this._checkResponse);
   }
 
@@ -60,7 +72,7 @@ class Api {
     const requestUrl = this._baseUrl + `/cards/${cardId}/likes`;
     return fetch(requestUrl, {
       method: 'PUT',
-      headers: this._headers,
+      headers: this._createHeaders(),
     }).then(this._checkResponse);
   }
 
@@ -68,7 +80,7 @@ class Api {
     const requestUrl = this._baseUrl + `/cards/${cardId}/likes`;
     return fetch(requestUrl, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: this._createHeaders(),
     }).then(this._checkResponse);
   }
 
@@ -76,19 +88,14 @@ class Api {
     const requestUrl = this._baseUrl + `/users/me/avatar`;
     return fetch(requestUrl, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: this._createHeaders(),
       body: JSON.stringify(body),
     }).then(this._checkResponse);
   }
 }
 
 const api = new Api({
-  baseUrl: `https://api.oksifoxy.mesto.nomoredomains.work`,
-  // baseUrl: `https://auth.nomoreparties.co`,
-  headers: {
-    authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    'Content-Type': 'application/json'
-  }
+  baseUrl: `https://api.oksifoxy.mesto.nomoredomains.work`
 });
 
 export default api;
